@@ -18,35 +18,35 @@ Note that polygons also multiply, so △△ is 3 * 3, or 9.
 
 ## examples
 - forward :: ^
-  ^ N △ ⌈ ^
-  forward 3.14 right (1/3 * 360) forward 3.14
+  - ^ N △ ⌈ ^
+  - forward 3.14 right (1/3 * 360) forward 3.14
 - turn right :: ⌈
-  ^ ^ N ⌷ ⌈ ^
-  forward 3.14 forward 3.14 right (1/4 * 360) forward 3.14
+  - ^ ^ N ⌷ ⌈ ^
+  - forward 3.14 forward 3.14 right (1/4 * 360) forward 3.14
 - turn left :: ⌉
-  ^ ^ N ⌷ ⌉ ^
-  forward 3.14 forward 3.14 left (1/4 * 360) forward 3.14
+  - ^ ^ N ⌷ ⌉ ^
+  - forward 3.14 forward 3.14 left (1/4 * 360) forward 3.14
 - repeat twice :: |
-  |
-  forward 3.14
+  - |
+  - forward 3.14
 - repeat three times :: △
-  △ [ ^ N ⌷ ⌈ ]
-  repeat 3 [ forward 3.14 right (1/4 * 360) ]
+  - △ [ ^ N ⌷ ⌈ ]
+  - repeat 3 [ forward 3.14 right (1/4 * 360) ]
 - repeat six times :: ⎔
-  ⎔ [ ^ N ⎔ ⌈ ]
-  repeat 6 [ forward 3.14 right (1/6 * 360) ]
+  - ⎔ [ ^ N ⎔ ⌈ ]
+  - repeat 6 [ forward 3.14 right (1/6 * 360) ]
 - repeat four times :: ⌷
-  ⌷ [ ^ N ⌷ ⌈ ]
-  repeat 4 [ forward 3.14 right (1/4 * 360) ]
+  - ⌷ [ ^ N ⌷ ⌈ ]
+  - repeat 4 [ forward 3.14 right (1/4 * 360) ]
 - repeat 5 times :: ⬠
-  ⬠ [ ^ N ⬠ ⌈ ]
-  repeat 5 [ forward 3.14 right (1/5 * 360) ]
+  - ⬠ [ ^ N ⬠ ⌈ ]
+  - repeat 5 [ forward 3.14 right (1/5 * 360) ]
 - repeat 8 times :: ⯃
-  ⯃ [ ^ N ⯃ ⌈ ]
-  repeat 8 [ forward 3.14 right (1/8 * 360) ]
+  - ⯃ [ ^ N ⯃ ⌈ ]
+  - repeat 8 [ forward 3.14 right (1/8 * 360) ]
 - penup :: ○
-  |||△△⬠ [ ^ N |||△△⬠ ⌈ ]
-  repeat 360 [ forward 3.14 right (1/360 * 360) ]
+  - |||△△⬠ [ ^ N |||△△⬠ ⌈ ]
+  - repeat 360 [ forward 3.14 right (1/360 * 360) ]
 - pendown :: ⍉
-  |||△△⬠ [ ^ N |||△△⬠ ⌈ ] | N ⌈ ^
-  repeat 360 [ forward 3.14 right (1/360 * 360) ] right (1/2 * 360) forward 3.14
+  - |||△△⬠ [ ^ N |||△△⬠ ⌈ ] | N ⌈ ^
+  - repeat 360 [ forward 3.14 right (1/360 * 360) ] right (1/2 * 360) forward 3.14

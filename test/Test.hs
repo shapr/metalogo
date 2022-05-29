@@ -9,18 +9,19 @@ import Text.Megaparsec
 
 main :: IO ()
 main = do
-  hspec multiplicitySpec
-  hspec compileSpec
+  hspec metalogoParseSpec
 
-multiplicitySpec :: Spec
-multiplicitySpec = do
-  describe "multiplicity" $
-    it "works" $
-      parse pMult "" "|" `shouldParse` Stroke
+-- hspec compileSpec
 
-compileSpec ::
-  Spec
-compileSpec = do
-  describe "compile" $
+metalogoParseSpec :: Spec
+metalogoParseSpec = do
+  describe "parsing" $
     it "works" $
-      compile [Forward] `shouldBe` "forward (2* pi)"
+      (parse pLogo "" "|" `shouldParse` Multiplicity 2)
+
+-- compileSpec ::
+--   Spec
+-- compileSpec = do
+--   describe "compile" $
+--     it "works" $
+--       compile [Caret] `shouldBe` "forward 6.28"

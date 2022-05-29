@@ -15,77 +15,53 @@ stack based language where
   -}
 type Parser = Parsec Void Text
 
+data Control = PenDown | PenUp | QuoteBegin | QuoteEnd deriving (Eq, Ord, Show)
+
 data MetaLogo
-  = Caret -- forward 3.14
-  | PenDown
-  | PenUp
-  | QuoteBegin
-  | QuoteEnd
-  | TurnLeft
-  | TurnRight
-  | Mult [Multiplicity]
+  = Caret Int -- forward 1 -> 'forward 6.28'
+  | Meta Control
+  | TurnLeft Int -- 1 is turn left, -1 is turn right
+  | Multiplicity Integer
+  | Reciprocal
   deriving (Eq, Ord, Show)
 
--- △ △ = 9
-
+-- lexer
 pLogo :: Parser MetaLogo
 pLogo =
-  Caret <$ string "^"
-    <|> PenUp <$ string "○"
-    <|> PenDown <$ string "⍉"
-    <|> QuoteBegin <$ string "["
-    <|> QuoteEnd <$ string "]"
-    <|> TurnRight <$ string "⌈"
-    <|> TurnLeft <$ string "⌉"
+  Caret 1 <$ string "^"
+    <|> Meta PenUp <$ string "○"
+    <|> Meta PenDown <$ string "⍉"
+    <|> Meta QuoteBegin <$ string "["
+    <|> Meta QuoteEnd <$ string "]"
+    <|> TurnLeft (-1) <$ string "⌈"
+    <|> TurnLeft 1 <$ string "⌉"
+    <|> Multiplicity <$> pMult
 
--- <|> Mult <$ (many pMult)
-
--- what about other primes that aren't here?
-data Multiplicity
-  = Stroke
-  | Triangle
-  | Square
-  | Pentagon
-  | Hexagon
-  | Heptagon
-  | Octagon
-  deriving (Eq, Ord, Show)
-
-mult :: [Multiplicity] -> Integer -> Integer
-mult ms = (* (product $ map m ms))
-
-m :: Num p => Multiplicity -> p
-m Stroke = 2
-m Triangle = 3
-m Square = 4
-m Pentagon = 5
-m Hexagon = 6
-m Heptagon = 7
-m Octagon = 8
-
-pMult :: Parser Multiplicity
+pMult :: Parser Integer
 pMult =
-  Stroke <$ string "|"
-    <|> Triangle <$ string "△"
-    <|> Square <$ string "⌷"
-    <|> Pentagon <$ string "⬠"
-    <|> Hexagon <$ string "⎔"
-    <|> Octagon <$ string "⯃"
+  2 <$ string "|"
+    <|> 3 <$ string "△"
+    <|> 4 <$ string "⌷"
+    <|> 5 <$ string "⬠"
+    <|> 6 <$ string "⎔"
+    <|> 8 <$ string "⯃"
 
--- eval :: MetaLogo -> Text
--- eval Caret = "forward 3.14"
--- eval Octagon = (4 *) -- is this gonna work?
--- eval PenDown = "pendown"
--- eval PenUp = "penup"
--- eval Pentagon = _wa
--- eval QuoteBegin = "["
--- eval QuoteEnd = "]"
--- eval Square = _wb
--- eval Triangle = _wk
--- eval TurnLeft = _wh
--- eval TurnRight = _wg
+-- simplify :: [MetaLogo] -> [MetaLogo]
+-- simplify [
 
-compile :: [MetaLogo] -> Text
-compile [Caret] = "forward" <> (showt (2 * pi))
+{- convert metalogo to actual logo -}
 
-showt = T.pack . show
+-- eval :: MetaLogo -> ActualLogo
+-- eval (Caret i) = Forward (fromIntegral i)
+-- eval (Meta c) = Actual c
+
+-- eval TurnLeft dir = _
+
+-- data ActualLogo
+--   = Forward Float -- "|^" -> fmap (*2) Forward 6.28
+--   | Actual Control
+
+-- compile :: [ActualLogo] -> Text
+-- compile [Caret] = "forward " <> (showt (2 * pi))
+
+-- showt = T.pack . show

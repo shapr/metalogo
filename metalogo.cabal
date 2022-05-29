@@ -50,7 +50,7 @@ extra-source-files:
     CHANGELOG.md
 
 common deps
-       build-depends: base >= 4.11, attoparsec, text, containers
+       build-depends: base >= 4.11, megaparsec, text, containers
        ghc-options: -Wall -O2
 
 library
@@ -105,7 +105,7 @@ test-suite metalogo-test
     hs-source-dirs:   test
 
     -- The entrypoint to the test suite.
-    main-is:          MyLibTest.hs
+    main-is:          Test.hs
 
     -- Test dependencies.
-    build-depends:    base ^>=4.14.3.0
+    build-depends:    base >=4.14, hspec-megaparsec, hspec, metalogo
